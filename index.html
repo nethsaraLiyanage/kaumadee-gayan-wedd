@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#3d2413" />
+  <title>Kaumadee &amp; Gayan — Wedding Invitation</title>
+  <meta name="description" content="Together with our families, we joyfully invite you to celebrate our wedding." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kaumadee &amp; Gayan — Wedding Invitation" />
+  <meta property="og:description" content="Together with our families, we joyfully invite you to celebrate our wedding." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Without JavaScript the lamp cannot be tapped, so show the invitation outright. -->
+  <noscript>
+    <style>
+      .gate, .scrollcue { display: none !important; }
+      body.is-gated { overflow: auto !important; height: auto !important; }
+      .invitation { opacity: 1 !important; }
+      .reveal { opacity: 1 !important; translate: none !important; }
+    </style>
+  </noscript>
+</head>
+
+<body class="is-gated">
+
+  <!-- ============================================================
+       OPENING SCREEN — the oil lamp
+       ============================================================ -->
+  <section class="gate" id="gate">
+    <div class="gate__glow" aria-hidden="true"></div>
+
+    <div class="gate__inner">
+      <div class="monogram" aria-hidden="true">
+        <svg viewBox="0 0 120 120" class="monogram__ring">
+          <circle cx="60" cy="60" r="47" />
+          <path class="monogram__sprig" d="M60 13 q 11 -5 17 2 M60 13 q -11 -5 -17 2 M77 15 q 6 6 3 13 M43 15 q -6 6 -3 13" />
+          <path class="monogram__sprig" d="M60 107 q 11 5 17 -2 M60 107 q -11 5 -17 -2" />
+        </svg>
+        <span class="monogram__letters">
+          <span data-bind="couple.monogramOne">K</span><em>&amp;</em><span data-bind="couple.monogramTwo">G</span>
+        </span>
+      </div>
+
+      <p class="eyebrow gate__label" data-bind="gate.label">A Wedding Invitation</p>
+
+      <button class="lamp" id="lampButton" type="button" aria-label="Light the lamp to open the invitation">
+        <span class="lamp__halo" aria-hidden="true"></span>
+
+        <svg class="lamp__art" viewBox="0 0 200 320" aria-hidden="true">
+          <defs>
+            <linearGradient id="brass" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#8a5c1c" />
+              <stop offset="18%"  stop-color="#d9ae4e" />
+              <stop offset="38%"  stop-color="#f7e3a8" />
+              <stop offset="55%"  stop-color="#d9ae4e" />
+              <stop offset="78%"  stop-color="#a8761f" />
+              <stop offset="100%" stop-color="#7a5016" />
+            </linearGradient>
+            <linearGradient id="brassDeep" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#6f4413" />
+              <stop offset="30%"  stop-color="#c99b39" />
+              <stop offset="50%"  stop-color="#efd694" />
+              <stop offset="72%"  stop-color="#b5852a" />
+              <stop offset="100%" stop-color="#5f3a10" />
+            </linearGradient>
+            <radialGradient id="flameCore" cx="50%" cy="65%" r="60%">
+              <stop offset="0%"   stop-color="#fffdf2" />
+              <stop offset="35%"  stop-color="#ffe9a8" />
+              <stop offset="70%"  stop-color="#ffb43d" />
+              <stop offset="100%" stop-color="#f07f12" />
+            </radialGradient>
+          </defs>
+
+          <!-- flame -->
+          <g class="lamp__flame">
+            <path class="lamp__flame-outer"
+                  d="M100 62 c 16 24 26 38 26 52 a 26 26 0 0 1 -52 0 c 0 -14 10 -28 26 -52 z" />
+            <path class="lamp__flame-core"
+                  d="M100 86 c 8 14 13 21 13 29 a 13 13 0 0 1 -26 0 c 0 -8 5 -15 13 -29 z"
+                  fill="url(#flameCore)" />
+          </g>
+
+          <!-- wick lip -->
+          <path class="lamp__part" fill="url(#brassDeep)" d="M94 128 h12 l-2 8 h-8 z" />
+
+          <!-- oil bowl with spouts -->
+          <path class="lamp__part" fill="url(#brass)"
+                d="M52 132 c -6 -4 -2 -9 6 -9 h84 c 8 0 12 5 6 9 l -6 4 h-84 z" />
+          <ellipse class="lamp__part" cx="100" cy="130" rx="44" ry="7" fill="url(#brassDeep)" />
+          <path class="lamp__part" fill="url(#brass)"
+                d="M62 136 h76 c -3 12 -14 18 -38 18 s -35 -6 -38 -18 z" />
+
+          <!-- shaft -->
+          <rect class="lamp__part" x="94" y="152" width="12" height="112" fill="url(#brass)" />
+
+          <!-- tiered discs -->
+          <ellipse class="lamp__part" cx="100" cy="172" rx="24" ry="7" fill="url(#brass)" />
+          <ellipse class="lamp__part" cx="100" cy="205" rx="20" ry="6" fill="url(#brass)" />
+          <ellipse class="lamp__part" cx="100" cy="236" rx="24" ry="7" fill="url(#brass)" />
+
+          <!-- fluted base -->
+          <path class="lamp__part" fill="url(#brass)"
+                d="M70 264 h60 c 6 10 16 16 26 20 h-112 c 10 -4 20 -10 26 -20 z" />
+          <ellipse class="lamp__part" cx="100" cy="286" rx="56" ry="9" fill="url(#brassDeep)" />
+          <ellipse class="lamp__part" cx="100" cy="292" rx="48" ry="7" fill="url(#brass)" />
+        </svg>
+      </button>
+
+      <p class="gate__hint" id="gateHint">
+        <span class="gate__spark">&#10022;</span>
+        <span data-bind="gate.hint">Tap to light the lamp</span>
+        <span class="gate__spark">&#10022;</span>
+      </p>
+
+      <p class="gate__quote" id="gateQuote" data-bind="gate.quote">
+        As the flame is lit, so begins a new life together.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       MUSIC TOGGLE
+       ============================================================ -->
+  <button class="music" id="musicButton" type="button" hidden
+          aria-label="Toggle background music" aria-pressed="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 18V5l10-2v13" />
+      <circle cx="6.5" cy="18" r="2.6" />
+      <circle cx="16.5" cy="16" r="2.6" />
+    </svg>
+    <span class="music__slash" aria-hidden="true"></span>
+  </button>
+  <audio id="musicAudio" loop preload="none"></audio>
+
+
+  <!-- ============================================================
+       THE INVITATION
+       ============================================================ -->
+  <!-- `inert` is applied by app.js so that the no-JavaScript fallback stays usable -->
+  <main class="invitation" id="invitation">
+
+    <!-- ---------- Hero ---------- -->
+    <header class="hero">
+      <div class="hero__wash" aria-hidden="true"></div>
+      <div class="petals" id="petals" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <p class="eyebrow" data-bind="hero.eyebrow">Together with our families</p>
+        <p class="hero__blessing" data-bind="hero.blessing">with a sheaf of betel and hearts full of joy</p>
+
+        <h1 class="hero__names">
+          <span class="hero__name" data-bind="couple.nameOne">Kaumadee</span>
+          <span class="hero__joiner" data-bind="couple.joiner">and</span>
+          <span class="hero__name" data-bind="couple.nameTwo">Gayan</span>
+        </h1>
+
+        <svg class="flourish" viewBox="0 0 240 24" aria-hidden="true">
+          <path d="M12 12 q 40 -12 68 0 q 28 12 40 0 q 12 -12 40 0 q 28 12 68 0" />
+          <circle cx="120" cy="12" r="2.6" />
+          <circle cx="6" cy="12" r="1.6" />
+          <circle cx="234" cy="12" r="1.6" />
+        </svg>
+
+        <div class="datecard">
+          <div class="datecard__side"><span data-date="weekday">Thursday</span></div>
+          <div class="datecard__core">
+            <span class="datecard__month" data-date="month">November</span>
+            <span class="datecard__day" data-date="day">5</span>
+            <span class="datecard__year" data-date="year">2026</span>
+          </div>
+          <div class="datecard__side"><span data-bind="event.timeLabel">9.00 AM</span></div>
+        </div>
+
+        <a class="scrollcue" href="#invite" aria-label="Scroll to the invitation">
+          <span class="eyebrow" data-bind="hero.scrollCue">Scroll</span>
+          <span class="scrollcue__line" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="hero__garden" aria-hidden="true">
+        <img src="assets/floral-border.svg" alt="" />
+      </div>
+    </header>
+
+
+    <!-- ---------- The invitation ---------- -->
+    <section class="section section--tint" id="invite">
+      <div class="wrap reveal">
+        <p class="eyebrow" data-bind="sections.invitation.eyebrow">The Invitation</p>
+        <h2 class="display" data-bind="sections.invitation.title">You Are Warmly Invited</h2>
+
+        <div class="families">
+          <p class="families__name" data-bind="sections.invitation.families.one"></p>
+          <p class="families__joiner" data-bind="sections.invitation.families.joiner"></p>
+          <p class="families__name" data-bind="sections.invitation.families.two"></p>
+
+          <span class="families__rule" aria-hidden="true"></span>
+
+          <p class="families__line" data-bind="sections.invitation.families.request"></p>
+          <p class="families__line" data-bind="sections.invitation.families.occasion"></p>
+        </div>
+
+        <p class="prose" data-bind="sections.invitation.body"></p>
+      </div>
+    </section>
+
+
+    <!-- ---------- The couple ---------- -->
+    <section class="section" id="couple">
+      <div class="wrap reveal">
+        <p class="eyebrow" data-bind="sections.couple.eyebrow">The Couple</p>
+        <h2 class="display" data-bind="sections.couple.title">Two Hearts, One Flame</h2>
+      </div>
+      <div class="arches reveal" id="coupleCards"></div>
+    </section>
+
+
+    <!-- ---------- The venue ---------- -->
+    <section class="section section--tint" id="venue">
+      <span class="mandala mandala--left" aria-hidden="true"></span>
+      <span class="mandala mandala--right" aria-hidden="true"></span>
+
+      <div class="wrap reveal">
+        <p class="eyebrow" data-bind="sections.venue.eyebrow">The Venue</p>
+        <h2 class="display" data-bind="event.venueName">Hotel Grand Palace</h2>
+        <p class="eyebrow eyebrow--soft" data-bind="event.venueCity">Hikkaduwa</p>
+        <p class="prose prose--italic" data-bind="sections.venue.body"></p>
+
+        <div class="details">
+          <p class="details__item"><span data-date="full">Thursday, 5 November 2026</span></p>
+          <p class="details__item" data-optional="event.timeRange"><span data-bind="event.timeRange"></span></p>
+          <p class="details__item details__item--accent" data-optional="event.ceremony"><span data-bind="event.ceremony"></span></p>
+        </div>
+
+        <!-- the map iframe is built by app.js from event.map -->
+        <figure class="map" id="venueMap" hidden></figure>
+
+        <a class="btn" id="directionsLink" href="#" target="_blank" rel="noopener noreferrer">
+          <span data-bind="sections.venue.directionsLabel">Get Directions</span>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ---------- Countdown ---------- -->
+    <section class="section" id="countdown">
+      <div class="wrap reveal">
+        <p class="eyebrow" data-bind="sections.countdown.eyebrow">Until the Auspicious Hour</p>
+        <h2 class="display" data-bind="sections.countdown.title">Counting the Days</h2>
+
+        <div class="clock" id="clock">
+          <div class="clock__unit"><span class="clock__num" data-clock="days">00</span><span class="clock__label" data-bind="sections.countdown.labels.days">Days</span></div>
+          <div class="clock__unit"><span class="clock__num" data-clock="hours">00</span><span class="clock__label" data-bind="sections.countdown.labels.hours">Hours</span></div>
+          <div class="clock__unit"><span class="clock__num" data-clock="minutes">00</span><span class="clock__label" data-bind="sections.countdown.labels.minutes">Minutes</span></div>
+          <div class="clock__unit"><span class="clock__num" data-clock="seconds">00</span><span class="clock__label" data-bind="sections.countdown.labels.seconds">Seconds</span></div>
+        </div>
+
+        <p class="clock__done" id="clockDone" hidden data-bind="sections.countdown.finishedMessage"></p>
+      </div>
+    </section>
+
+
+    <!-- ---------- RSVP ---------- -->
+    <section class="section section--tint" id="rsvp">
+      <div class="wrap reveal">
+        <p class="eyebrow" data-bind="sections.rsvp.eyebrow">Kindly Reply</p>
+        <h2 class="display" data-bind="sections.rsvp.title">Will You Join Us?</h2>
+        <p class="prose prose--italic" id="rsvpDeadline"></p>
+        <div class="rsvp__actions" id="rsvpActions"></div>
+        <p class="rsvp__note" data-bind="sections.rsvp.note"></p>
+      </div>
+    </section>
+
+
+    <!-- ---------- Footer ---------- -->
+    <footer class="footer">
+      <p class="footer__names">
+        <span data-bind="couple.nameOne">Kaumadee</span>
+        <em>&amp;</em>
+        <span data-bind="couple.nameTwo">Gayan</span>
+      </p>
+      <p class="footer__meta" id="footerMeta"></p>
+      <p class="footer__lamp" aria-hidden="true">&#128717;</p>
+    </footer>
+
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
