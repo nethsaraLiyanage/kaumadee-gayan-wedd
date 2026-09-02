@@ -22,8 +22,10 @@ window.INVITATION_CONFIG = {
   event: {
     datetime: "2026-11-05T09:00:00+05:30",
     timeLabel: "9.00 AM",
+    // The small line under the time in the highlight block. Set to null to drop it.
+    timeNote: "Onwards",
     timeRange: "9.00 AM to 4.30 PM",
-    ceremony: "Poruwa ceremony at 10.00 AM",
+    ceremony: "Poruwa ceremony at 9.50 AM",
     venueName: "Hotel Grand Palace",
     venueCity: "Hikkaduwa",
     venueHall: null,
@@ -69,32 +71,49 @@ window.INVITATION_CONFIG = {
    * Page sections
    * ------------------------------------------------------------ */
   sections: {
+    /* The couple — sits directly under the hero.
+     * Each parent's name is shown above the child it belongs to. */
+    couple: {
+      eyebrow: "You are joyfully invited to celebrate the union of",
+
+      /* The illustration or photograph above the two names.
+       * Set to null to leave only the names. */
+      portrait: {
+        image: "assets/couple-portrait.jpg",
+        alt: "Kaumadee and Gayan beneath a flowered poruwa",
+      },
+
+      people: [
+        {
+          relation: "Beloved Daughter of",
+          parents: "Mr. Sarath Pathirana &amp; Mrs. Daya Liyanage",
+          name: "Kaumadee",
+        },
+        {
+          relation: "Beloved Son of",
+          parents: "Mr. Padmasiri Perera &amp; Mrs. Janitha Liyanage",
+          name: "Gayan",
+        },
+      ],
+    },
+
     invitation: {
       eyebrow: "The Invitation",
       title: "You Are Warmly Invited",
 
-      /* The two families, exactly as they appear on the printed card. */
+      /* The parents' names are introduced in the couple section above,
+       * so only the invitation itself is spoken here. */
       families: {
-        one: "Mr. Sarath Pathirana &amp; Mrs. Daya Liyanage",
-        joiner: "together with",
-        two: "Mr. Padmasiri Perera &amp; Mrs. Janitha Liyanage",
-        request: "request the honour of your presence",
-        occasion: "on the occasion of the marriage of their children",
+        request: "with hearts full of joy, we request the honour of your presence",
+        occasion: "as we begin our life together",
       },
 
-      body:
-        "Two families, one blessing, and a morning we have been waiting for. " +
-        "Join us as we light the lamp, step onto the poruwa, and begin this " +
-        "new chapter together. Your presence is the blessing we wish for most.",
-    },
-
-    couple: {
-      eyebrow: "The Couple",
-      title: "Two Hearts, One Flame",
-      cards: [
-        { image: "assets/couple-1.jpg", caption: "Beneath the poruwa" },
-        { image: "assets/couple-2.jpg", caption: "Rooted in tradition" },
-      ],
+      /* Labels above the date and the time in the highlight block. The values
+       * themselves come from `event` so they can never drift out of sync. */
+      when: {
+        dateLabel: "The Date",
+        timeLabel: "The Time",
+      },
     },
 
     venue: {

@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap"
     rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
@@ -183,7 +183,7 @@
           <div class="datecard__side"><span data-bind="event.timeLabel">9.00 AM</span></div>
         </div>
 
-        <a class="scrollcue" href="#invite" aria-label="Scroll to the invitation">
+        <a class="scrollcue" href="#couple" aria-label="Scroll to the invitation">
           <span class="eyebrow" data-bind="hero.scrollCue">Scroll</span>
           <span class="scrollcue__line" aria-hidden="true"></span>
         </a>
@@ -195,35 +195,75 @@
     </header>
 
 
+    <!-- ---------- The couple ---------- -->
+    <section class="section section--tint section--union" id="couple">
+      <span class="mandala mandala--left" aria-hidden="true"></span>
+      <span class="mandala mandala--right" aria-hidden="true"></span>
+
+      <span class="union__watermark" aria-hidden="true">
+        <span data-bind="couple.monogramOne">K</span>&amp;<span data-bind="couple.monogramTwo">G</span>
+      </span>
+
+      <div class="wrap reveal">
+        <p class="eyebrow eyebrow--wide" data-bind="sections.couple.eyebrow">
+          You are joyfully invited to celebrate the union of
+        </p>
+      </div>
+
+      <!-- portrait and the two names are built by app.js from sections.couple -->
+      <figure class="portrait reveal" id="couplePortrait" hidden></figure>
+      <div class="union reveal" id="coupleUnion"></div>
+    </section>
+
+
     <!-- ---------- The invitation ---------- -->
-    <section class="section section--tint" id="invite">
+    <section class="section" id="invite">
       <div class="wrap reveal">
         <p class="eyebrow" data-bind="sections.invitation.eyebrow">The Invitation</p>
         <h2 class="display" data-bind="sections.invitation.title">You Are Warmly Invited</h2>
 
         <div class="families">
-          <p class="families__name" data-bind="sections.invitation.families.one"></p>
-          <p class="families__joiner" data-bind="sections.invitation.families.joiner"></p>
-          <p class="families__name" data-bind="sections.invitation.families.two"></p>
-
           <span class="families__rule" aria-hidden="true"></span>
 
           <p class="families__line" data-bind="sections.invitation.families.request"></p>
           <p class="families__line" data-bind="sections.invitation.families.occasion"></p>
         </div>
-
-        <p class="prose" data-bind="sections.invitation.body"></p>
       </div>
-    </section>
 
+      <!-- date and time, set apart from the copy above -->
+      <div class="when reveal">
+        <span class="when__watermark" aria-hidden="true">&amp;</span>
 
-    <!-- ---------- The couple ---------- -->
-    <section class="section" id="couple">
-      <div class="wrap reveal">
-        <p class="eyebrow" data-bind="sections.couple.eyebrow">The Couple</p>
-        <h2 class="display" data-bind="sections.couple.title">Two Hearts, One Flame</h2>
+        <div class="when__grid">
+          <div class="when__cell">
+            <svg class="when__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="2.5" />
+              <path d="M3 10h18M8 3v4M16 3v4" />
+            </svg>
+            <p class="eyebrow" data-bind="sections.invitation.when.dateLabel">The Date</p>
+            <p class="when__value"><span data-date="dayline">Thursday, 5th November</span></p>
+            <p class="when__note"><span data-date="year">2026</span></p>
+          </div>
+
+          <span class="when__rule" aria-hidden="true"></span>
+
+          <div class="when__cell">
+            <svg class="when__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 6.8v5.6l3.6 2.1" />
+            </svg>
+            <p class="eyebrow" data-bind="sections.invitation.when.timeLabel">The Time</p>
+            <p class="when__value" data-bind="event.timeLabel">9.00 AM</p>
+            <p class="when__note" data-optional="event.timeNote" data-bind="event.timeNote">Onwards</p>
+          </div>
+        </div>
+
+        <p class="when__chip" data-optional="event.ceremony">
+          <span class="when__spark" aria-hidden="true">&#10022;</span>
+          <span data-bind="event.ceremony"></span>
+          <span class="when__spark" aria-hidden="true">&#10022;</span>
+        </p>
       </div>
-      <div class="arches reveal" id="coupleCards"></div>
     </section>
 
 

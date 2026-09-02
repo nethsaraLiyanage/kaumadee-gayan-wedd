@@ -44,6 +44,13 @@
     return String(n).padStart(2, "0");
   }
 
+  /** 1 -> "1st", 2 -> "2nd", 11 -> "11th" */
+  function ordinal(n) {
+    var teens = n % 100;
+    if (teens >= 11 && teens <= 13) return n + "th";
+    return n + (["th", "st", "nd", "rd"][n % 10] || "th");
+  }
+
   /* ---------------------------------------------------------------
    * Date + time
    * ------------------------------------------------------------ */
@@ -71,6 +78,9 @@
     // "Thursday, 5 November 2026"
     parts.full = parts.weekday + ", " + parts.day + " " + parts.month + " " + parts.year;
 
+    // "Thursday, 5th November" — the year is shown on its own line beneath it
+    parts.dayline = parts.weekday + ", " + ordinal(eventDate.getDate()) + " " + parts.month;
+
     document.querySelectorAll("[data-date]").forEach(function (el) {
       var value = parts[el.getAttribute("data-date")];
       if (value) el.textContent = value;
@@ -84,47 +94,67 @@
   }
 
   /* ---------------------------------------------------------------
-   * The couple cards
+   * The couple — portrait, then each name under its parents'
    * ------------------------------------------------------------ */
-  function renderCoupleCards() {
-    var host = document.getElementById("coupleCards");
-    var cards = (CONFIG.sections.couple && CONFIG.sections.couple.cards) || [];
-    if (!host) return;
-
+  function renderCouple() {
+    var couple = CONFIG.sections.couple || {};
     var monogram = CONFIG.couple.monogramOne + " & " + CONFIG.couple.monogramTwo;
 
+    renderPortrait(couple.portrait, monogram);
+
+    var host = document.getElementById("coupleUnion");
+    var people = couple.people || [];
+    if (!host) return;
+
     host.innerHTML = "";
-    cards.forEach(function (card) {
-      var figure = document.createElement("figure");
-      figure.className = "arch";
+    people.forEach(function (person, index) {
+      var card = document.createElement("article");
+      card.className = "person";
 
-      var frame = document.createElement("div");
-      frame.className = "arch__frame";
-      frame.setAttribute("data-monogram", monogram);
+      [
+        ["person__relation", person.relation],
+        ["person__parents", person.parents],
+        ["person__name", person.name],
+      ].forEach(function (row) {
+        if (!row[1]) return;
+        var line = document.createElement("p");
+        line.className = row[0];
+        line.innerHTML = row[1];
+        card.appendChild(line);
+      });
 
-      if (card.image) {
-        var img = document.createElement("img");
-        img.src = card.image;
-        img.alt = card.caption ? String(card.caption).replace(/&amp;/g, "&") : "";
-        img.loading = "lazy";
-        // If the photo has not been added yet, fall back to the monogram plate.
-        img.addEventListener("error", function () {
-          frame.classList.add("is-empty");
-          img.remove();
-        });
-        frame.appendChild(img);
-      } else {
-        frame.classList.add("is-empty");
+      host.appendChild(card);
+
+      // The medallion is what the two cards are joined by, so it only
+      // belongs there when there is in fact a second name to join to.
+      if (index === 0 && people.length > 1) {
+        var amp = document.createElement("span");
+        amp.className = "union__amp";
+        amp.setAttribute("aria-hidden", "true");
+        amp.textContent = "&";
+        host.appendChild(amp);
       }
-
-      var caption = document.createElement("figcaption");
-      caption.className = "arch__caption";
-      caption.innerHTML = card.caption || "";
-
-      figure.appendChild(frame);
-      figure.appendChild(caption);
-      host.appendChild(figure);
     });
+  }
+
+  function renderPortrait(portrait, monogram) {
+    var host = document.getElementById("couplePortrait");
+    if (!host || !portrait || !portrait.image) return;
+
+    var img = document.createElement("img");
+    img.src = portrait.image;
+    img.alt = portrait.alt ? String(portrait.alt).replace(/&amp;/g, "&") : "";
+    img.loading = "lazy";
+
+    // If the picture has not been dropped in yet, fall back to the monogram.
+    img.addEventListener("error", function () {
+      host.setAttribute("data-monogram", monogram);
+      host.classList.add("is-empty");
+      img.remove();
+    });
+
+    host.appendChild(img);
+    host.hidden = false;
   }
 
   /* ---------------------------------------------------------------
@@ -448,7 +478,7 @@
     applyBindings();
     applyOptional();
     renderDateBlock();
-    renderCoupleCards();
+    renderCouple();
     renderVenue();
     renderMap();
     renderRsvp();

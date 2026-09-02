@@ -42,13 +42,14 @@ A few things worth knowing:
 
 ### Photos
 
-`assets/couple-1.jpg` and `assets/couple-2.jpg` hold the two illustrations. To
-swap them, replace those files or point `sections.couple.cards[].image` somewhere
-else. The arched frames are roughly 4:3.4 and centre-crop, so keep the subject
-near the middle of the image.
+`assets/couple-portrait.jpg` is the illustration above the two names. To swap it,
+replace that file or point `sections.couple.portrait.image` somewhere else. The
+frame takes the shape of whatever you give it — nothing is cropped — so any
+aspect ratio works. (`assets/couple-1.jpg` and `assets/couple-2.jpg` are spares;
+nothing on the page uses them.)
 
-If a photo is missing the frame degrades gracefully to a monogram plate, so the
-page never shows a broken image.
+If the photo is missing the frame degrades gracefully to a monogram plate, so
+the page never shows a broken image.
 
 ## What is currently on the page
 
@@ -57,7 +58,7 @@ Taken from the printed invitation card:
 | | |
 | --- | --- |
 | Couple | Kaumadee and Gayan |
-| Families | Mr. Sarath Pathirana &amp; Mrs. Daya Liyanage — together with — Mr. Padmasiri Perera &amp; Mrs. Janitha Liyanage |
+| Parents | Kaumadee — daughter of Mr. Sarath Pathirana &amp; Mrs. Daya Liyanage · Gayan — son of Mr. Padmasiri Perera &amp; Mrs. Janitha Liyanage |
 | Date | Thursday, 5 November 2026 |
 | Time | 9.00 AM to 4.30 PM, Poruwa ceremony at 10.00 AM |
 | Venue | Hotel Grand Palace, Hikkaduwa |
