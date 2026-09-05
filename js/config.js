@@ -50,12 +50,16 @@ window.INVITATION_CONFIG = {
   },
 
   /* ---------------------------------------------------------------
-   * Opening screen (the oil lamp)
+   * Opening screen (the folded card)
+   * `side` runs down the face of the card, `hint` sits along its foot,
+   * and `label` + `quote` are the page revealed once the seal is tapped.
    * ------------------------------------------------------------ */
   gate: {
+    side: "Kaumadee &amp; Gayan",
+    sealLabel: "Open",
+    hint: "Tap seal to open",
     label: "A Wedding Invitation",
-    hint: "Tap to light the lamp",
-    quote: "As the flame is lit, so begins a new life together.",
+    quote: "As two hearts are joined, so begins a new life together.",
   },
 
   /* ---------------------------------------------------------------
@@ -80,7 +84,7 @@ window.INVITATION_CONFIG = {
        * Set to null to leave only the names. */
       portrait: {
         image: "assets/couple-portrait.jpg",
-        alt: "Kaumadee and Gayan beneath a flowered poruwa",
+        alt: "Kaumadee and Gayan hand in hand beneath a flowered poruwa",
       },
 
       people: [
@@ -127,7 +131,7 @@ window.INVITATION_CONFIG = {
     countdown: {
       eyebrow: "Until the Auspicious Hour",
       title: "Counting the Days",
-      finishedMessage: "The lamp is lit — today is the day!",
+      finishedMessage: "The wait is over — today is the day!",
       labels: { days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds" },
     },
 

@@ -3,8 +3,8 @@
 A single-page digital wedding invitation. Plain HTML, CSS and JavaScript — no
 build step, no dependencies, no framework.
 
-The page opens on a dark screen with a traditional oil lamp. Tapping the lamp
-lights the flame and reveals the invitation beneath it.
+The page opens on a folded wedding card sealed with a monogram medallion.
+Tapping the seal swings the two leaves open and reveals the invitation beneath.
 
 ## Run it locally
 
@@ -88,17 +88,17 @@ project root. No build command is required.
 ## Project layout
 
 ```
-index.html            markup and inline SVG for the oil lamp
+index.html            markup for the card gate and every section
 css/styles.css        all styling, organised into numbered sections
 js/config.js          ← every editable detail lives here
-js/app.js             binding, countdown, reveal, petals, lamp gate
+js/app.js             binding, countdown, reveal, petals, card gate
 assets/               favicon, floral border, mandala, couple photos
 ```
 
 ## Accessibility notes
 
-- The invitation is marked `inert` until the lamp is tapped, so screen readers
+- The invitation is marked `inert` until the seal is tapped, so screen readers
   and keyboard focus stay on the opening screen.
-- The lamp is a real `<button>` and works with the keyboard.
+- The seal is a real `<button>` and works with the keyboard.
 - `prefers-reduced-motion` is honoured: petals are removed, reveals are
-  instant, and the lamp transition is shortened.
+  instant, and the card opening is shortened.

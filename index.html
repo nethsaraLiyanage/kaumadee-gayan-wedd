@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#3d2413" />
+  <meta name="theme-color" content="#fbf4e9" />
   <title>Kaumadee &amp; Gayan — Wedding Invitation</title>
   <meta name="description" content="Together with our families, we joyfully invite you to celebrate our wedding." />
 
@@ -21,7 +21,7 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Without JavaScript the lamp cannot be tapped, so show the invitation outright. -->
+  <!-- Without JavaScript the seal cannot be tapped, so show the invitation outright. -->
   <noscript>
     <style>
       .gate, .scrollcue { display: none !important; }
@@ -35,97 +35,68 @@
 <body class="is-gated">
 
   <!-- ============================================================
-       OPENING SCREEN — the oil lamp
+       OPENING SCREEN — the folded card, opened at its seal
        ============================================================ -->
   <section class="gate" id="gate">
-    <div class="gate__glow" aria-hidden="true"></div>
+    <div class="gate__pattern" aria-hidden="true"></div>
+    <div class="gate__wash" aria-hidden="true"></div>
 
     <div class="gate__inner">
-      <div class="monogram" aria-hidden="true">
-        <svg viewBox="0 0 120 120" class="monogram__ring">
-          <circle cx="60" cy="60" r="47" />
-          <path class="monogram__sprig" d="M60 13 q 11 -5 17 2 M60 13 q -11 -5 -17 2 M77 15 q 6 6 3 13 M43 15 q -6 6 -3 13" />
-          <path class="monogram__sprig" d="M60 107 q 11 5 17 -2 M60 107 q -11 5 -17 -2" />
-        </svg>
-        <span class="monogram__letters">
-          <span data-bind="couple.monogramOne">K</span><em>&amp;</em><span data-bind="couple.monogramTwo">G</span>
+
+      <!-- the crest, set on the cloth above the card -->
+      <div class="gate__crest">
+        <span class="monogram" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="monogram__ring">
+            <circle cx="60" cy="60" r="47" />
+            <path class="monogram__sprig" d="M60 13 q 11 -5 17 2 M60 13 q -11 -5 -17 2 M77 15 q 6 6 3 13 M43 15 q -6 6 -3 13" />
+            <path class="monogram__sprig" d="M60 107 q 11 5 17 -2 M60 107 q -11 5 -17 -2" />
+          </svg>
+          <span class="monogram__letters">
+            <span data-bind="couple.monogramOne">K</span><em>&amp;</em><span data-bind="couple.monogramTwo">G</span>
+          </span>
         </span>
+        <p class="eyebrow gate__label" data-bind="gate.label">A Wedding Invitation</p>
       </div>
 
-      <p class="eyebrow gate__label" data-bind="gate.label">A Wedding Invitation</p>
+      <div class="gate__stage">
+        <div class="card" id="card">
 
-      <button class="lamp" id="lampButton" type="button" aria-label="Light the lamp to open the invitation">
-        <span class="lamp__halo" aria-hidden="true"></span>
+          <!-- what is revealed as the two leaves swing open. The crest above
+               the card already carries the monogram, so only the blessing is
+               printed here. -->
+          <div class="card__inner" aria-hidden="true">
+            <span class="card__inner-rule"></span>
+            <p class="card__inner-quote" data-bind="gate.quote">
+              As two hearts are joined, so begins a new life together.
+            </p>
+            <span class="card__inner-rule"></span>
+          </div>
 
-        <svg class="lamp__art" viewBox="0 0 200 320" aria-hidden="true">
-          <defs>
-            <linearGradient id="brass" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%"   stop-color="#8a5c1c" />
-              <stop offset="18%"  stop-color="#d9ae4e" />
-              <stop offset="38%"  stop-color="#f7e3a8" />
-              <stop offset="55%"  stop-color="#d9ae4e" />
-              <stop offset="78%"  stop-color="#a8761f" />
-              <stop offset="100%" stop-color="#7a5016" />
-            </linearGradient>
-            <linearGradient id="brassDeep" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%"   stop-color="#6f4413" />
-              <stop offset="30%"  stop-color="#c99b39" />
-              <stop offset="50%"  stop-color="#efd694" />
-              <stop offset="72%"  stop-color="#b5852a" />
-              <stop offset="100%" stop-color="#5f3a10" />
-            </linearGradient>
-            <radialGradient id="flameCore" cx="50%" cy="65%" r="60%">
-              <stop offset="0%"   stop-color="#fffdf2" />
-              <stop offset="35%"  stop-color="#ffe9a8" />
-              <stop offset="70%"  stop-color="#ffb43d" />
-              <stop offset="100%" stop-color="#f07f12" />
-            </radialGradient>
-          </defs>
+          <!-- the folded card: two leaves meeting at the spine -->
+          <div class="card__leaf card__leaf--left" aria-hidden="true"></div>
+          <div class="card__leaf card__leaf--right" aria-hidden="true"></div>
 
-          <!-- flame -->
-          <g class="lamp__flame">
-            <path class="lamp__flame-outer"
-                  d="M100 62 c 16 24 26 38 26 52 a 26 26 0 0 1 -52 0 c 0 -14 10 -28 26 -52 z" />
-            <path class="lamp__flame-core"
-                  d="M100 86 c 8 14 13 21 13 29 a 13 13 0 0 1 -26 0 c 0 -8 5 -15 13 -29 z"
-                  fill="url(#flameCore)" />
-          </g>
+          <!-- everything printed across the closed card -->
+          <div class="card__face">
+            <span class="card__spine" aria-hidden="true"></span>
+            <span class="card__side" data-bind="gate.side">Kaumadee &amp; Gayan</span>
 
-          <!-- wick lip -->
-          <path class="lamp__part" fill="url(#brassDeep)" d="M94 128 h12 l-2 8 h-8 z" />
+            <button class="seal" id="sealButton" type="button" aria-label="Open the invitation">
+              <span class="seal__glow" aria-hidden="true"></span>
+              <span class="seal__disc">
+                <span class="seal__mono">
+                  <span data-bind="couple.monogramOne">K</span><em>&amp;</em><span data-bind="couple.monogramTwo">G</span>
+                </span>
+                <span class="seal__open" data-bind="gate.sealLabel">Open</span>
+              </span>
+            </button>
 
-          <!-- oil bowl with spouts -->
-          <path class="lamp__part" fill="url(#brass)"
-                d="M52 132 c -6 -4 -2 -9 6 -9 h84 c 8 0 12 5 6 9 l -6 4 h-84 z" />
-          <ellipse class="lamp__part" cx="100" cy="130" rx="44" ry="7" fill="url(#brassDeep)" />
-          <path class="lamp__part" fill="url(#brass)"
-                d="M62 136 h76 c -3 12 -14 18 -38 18 s -35 -6 -38 -18 z" />
+            <p class="card__hint" data-bind="gate.hint">Tap seal to open</p>
+          </div>
 
-          <!-- shaft -->
-          <rect class="lamp__part" x="94" y="152" width="12" height="112" fill="url(#brass)" />
+        </div>
+      </div>
 
-          <!-- tiered discs -->
-          <ellipse class="lamp__part" cx="100" cy="172" rx="24" ry="7" fill="url(#brass)" />
-          <ellipse class="lamp__part" cx="100" cy="205" rx="20" ry="6" fill="url(#brass)" />
-          <ellipse class="lamp__part" cx="100" cy="236" rx="24" ry="7" fill="url(#brass)" />
-
-          <!-- fluted base -->
-          <path class="lamp__part" fill="url(#brass)"
-                d="M70 264 h60 c 6 10 16 16 26 20 h-112 c 10 -4 20 -10 26 -20 z" />
-          <ellipse class="lamp__part" cx="100" cy="286" rx="56" ry="9" fill="url(#brassDeep)" />
-          <ellipse class="lamp__part" cx="100" cy="292" rx="48" ry="7" fill="url(#brass)" />
-        </svg>
-      </button>
-
-      <p class="gate__hint" id="gateHint">
-        <span class="gate__spark">&#10022;</span>
-        <span data-bind="gate.hint">Tap to light the lamp</span>
-        <span class="gate__spark">&#10022;</span>
-      </p>
-
-      <p class="gate__quote" id="gateQuote" data-bind="gate.quote">
-        As the flame is lit, so begins a new life together.
-      </p>
     </div>
   </section>
 
@@ -332,7 +303,7 @@
         <span data-bind="couple.nameTwo">Gayan</span>
       </p>
       <p class="footer__meta" id="footerMeta"></p>
-      <p class="footer__lamp" aria-hidden="true">&#128717;</p>
+      <p class="footer__mark" aria-hidden="true">&#10086;</p>
     </footer>
 
   </main>

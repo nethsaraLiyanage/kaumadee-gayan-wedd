@@ -419,7 +419,7 @@
     });
 
     return {
-      // Called on the lamp tap — a real user gesture, so autoplay is allowed.
+      // Called on the seal tap — a real user gesture, so autoplay is allowed.
       enable: function () {
         if (CONFIG.music.startMuted) return;
         play();
@@ -428,13 +428,14 @@
   })();
 
   /* ---------------------------------------------------------------
-   * The lamp gate
+   * The card gate — tapping the seal opens the two leaves
    * ------------------------------------------------------------ */
   function setupGate() {
     var gate = document.getElementById("gate");
-    var button = document.getElementById("lampButton");
+    var card = document.getElementById("card");
+    var button = document.getElementById("sealButton");
     var invitation = document.getElementById("invitation");
-    if (!gate || !button || !invitation) return;
+    if (!gate || !card || !button || !invitation) return;
 
     // Applied here rather than in the markup so the page stays usable
     // when JavaScript is unavailable and the gate never appears.
@@ -446,15 +447,15 @@
       if (opened) return;
       opened = true;
 
-      gate.classList.add("is-lit");
+      card.classList.add("is-open");
       button.disabled = true;
       music.enable();
 
-      // Let the flame settle before handing the page over.
-      var hold = reducedMotion ? 200 : 2200;
+      // Let the card finish opening before handing the page over.
+      var hold = reducedMotion ? 200 : 2400;
 
       setTimeout(function () {
-        gate.classList.add("is-open");
+        gate.classList.add("is-dismissed");
         document.body.classList.remove("is-gated");
         invitation.removeAttribute("inert");
         invitation.classList.add("is-revealed");

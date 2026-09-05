@@ -2,7 +2,7 @@
    Kaumadee & Gayan — Wedding Invitation
    1. Tokens        5. Hero
    2. Base          6. Sections
-   3. Gate + lamp   7. Countdown / RSVP / Footer
+   3. Gate + card   7. Countdown / RSVP / Footer
    4. Music         8. Motion + responsive
    ========================================================================== */
 
@@ -57,7 +57,7 @@ body {
   overflow-x: hidden;
 }
 
-/* while the lamp gate is up, the page beneath must not scroll */
+/* while the card gate is up, the page beneath must not scroll */
 body.is-gated { overflow: hidden; height: 100vh; }
 
 img, svg { display: block; max-width: 100%; }
@@ -112,43 +112,54 @@ h1, h2 { margin: 0; font-weight: 400; }
 }
 .flourish path { fill: none; }
 
-/* 3. Gate + lamp -------------------------------------------------------- */
+/* 3. Gate + card -------------------------------------------------------- */
 .gate {
   position: fixed;
   inset: 0;
   z-index: 90;
   display: grid;
   place-items: center;
-  padding: 2rem 1.25rem;
-  background:
-    radial-gradient(120% 80% at 50% 42%, #4f3117 0%, #3d2413 45%, #2c190b 100%);
+  padding: clamp(1rem, 4vh, 2.5rem) 1.25rem;
+  background: var(--cream-2);
   transition: opacity 1s var(--ease), visibility 1s;
 }
-.gate.is-open { opacity: 0; visibility: hidden; pointer-events: none; }
+.gate.is-dismissed { opacity: 0; visibility: hidden; pointer-events: none; }
 
-/* warm halo that blooms when the lamp is lit */
-.gate__glow {
+/* the faint mandala wallpaper the card is laid on */
+.gate__pattern {
   position: absolute;
-  left: 50%;
-  top: 52%;
-  width: min(120vw, 60rem);
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 190, 90, 0.42) 0%, rgba(255, 170, 60, 0.12) 38%, transparent 66%);
-  opacity: 0;
-  transition: opacity 1.6s ease 0.15s;
+  inset: 0;
+  background: url("../assets/mandala.svg") center / clamp(14rem, 34vw, 22rem) auto repeat;
+  opacity: 0.09;
   pointer-events: none;
 }
-.gate.is-lit .gate__glow { opacity: 1; }
+.gate__wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(58% 44% at 50% 46%, rgba(253, 250, 243, 0.92) 0%, rgba(251, 244, 233, 0.5) 55%, transparent 78%),
+    radial-gradient(40% 32% at 8% 8%, rgba(233, 201, 187, 0.35) 0%, transparent 70%),
+    radial-gradient(40% 32% at 92% 92%, rgba(239, 214, 148, 0.32) 0%, transparent 70%);
+  pointer-events: none;
+}
 
-.gate__inner { position: relative; text-align: center; }
+/* the crest, then the card beneath it */
+.gate__inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.1rem, 3vh, 2rem);
+}
 
-.gate__label { color: var(--gold-300); opacity: 0.62; margin-top: 1rem; }
+.gate__crest {
+  display: grid;
+  justify-items: center;
+  gap: clamp(0.55rem, 1.4vh, 0.9rem);
+  text-align: center;
+}
 
-/* monogram */
-.monogram { position: relative; width: 7.5rem; margin-inline: auto; }
-.monogram__ring { width: 100%; fill: none; stroke: var(--gold-400); stroke-width: 1; opacity: 0.75; }
+.monogram { position: relative; width: clamp(3.5rem, 8.5vh, 5.25rem); aspect-ratio: 1; }
+.monogram__ring { width: 100%; fill: none; stroke: var(--gold-500); stroke-width: 1; opacity: 0.7; }
 .monogram__sprig { stroke-linecap: round; }
 .monogram__letters {
   position: absolute;
@@ -158,103 +169,263 @@ h1, h2 { margin: 0; font-weight: 400; }
   grid-auto-flow: column;
   align-items: center;
   gap: 0.05em;
-  font-size: 2.35rem;
-  color: var(--gold-300);
+  font-size: clamp(1.05rem, 2.5vh, 1.5rem);
   letter-spacing: 0.02em;
+  color: var(--brown-800);
 }
-.monogram__letters em { font-size: 0.62em; font-style: italic; opacity: 0.85; }
+.monogram__letters em { font-size: 0.62em; font-style: italic; color: var(--gold-500); }
 
-/* the lamp button */
-.lamp {
+.gate__label {
+  font-size: clamp(0.5rem, 1.35vh, 0.625rem);
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+}
+
+/* the stage gives the two leaves their depth as they swing open */
+.gate__stage {
   position: relative;
-  display: block;
-  width: clamp(9rem, 26vw, 12rem);
-  margin: clamp(2rem, 6vh, 3.5rem) auto 0;
+  perspective: 2400px;
+  perspective-origin: 50% 45%;
+}
+
+.card {
+  position: relative;
+  /* sized from its height so the card keeps its proportions on every screen */
+  height: min(70svh, calc(84vw * 1.56), 36rem);
+  aspect-ratio: 0.64;
+  --card-radius: clamp(1.1rem, 4vw, 1.75rem);
+  /* no filter here — it would flatten the leaves' 3D and kill the perspective */
+  transform-style: preserve-3d;
+  /* eases the card back as the leaves swing forward, so the opening does not
+     lunge at the reader */
+  transition: scale 1.25s var(--ease);
+}
+.card.is-open { scale: 0.94; }
+
+/* the shadow the closed card casts — carried by the card itself so it does
+   not travel with either leaf as they turn */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-radius);
+  box-shadow: 0 26px 48px rgba(61, 36, 19, 0.28);
+  transition: opacity 0.7s ease;
+}
+.card.is-open::before { opacity: 0; }
+
+/* ---- the two leaves ---- */
+.card__leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.2%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(239, 214, 148, 0.11) 1px, transparent 0),
+    linear-gradient(168deg, #5c3a1b 0%, #422818 38%, #351f10 68%, #2a1709 100%);
+  background-size: 15px 15px, 200% 100%;
+  transition:
+    transform 1.25s var(--ease),
+    filter 1.25s var(--ease),
+    opacity 0.6s ease 0.5s;
+}
+.card__leaf--left {
+  left: 0;
+  border-radius: var(--card-radius) 0 0 var(--card-radius);
+  transform-origin: left center;
+  background-position: 0 0, left center;
+  box-shadow: inset 0 0 5rem rgba(20, 10, 3, 0.5);
+}
+.card__leaf--right {
+  right: 0;
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  transform-origin: right center;
+  background-position: 0 0, right center;
+  box-shadow: inset 0 0 5rem rgba(20, 10, 3, 0.5);
+}
+.card.is-open .card__leaf  { opacity: 0; }
+/* stopping just short of 90deg keeps the hidden backs of the leaves from
+   snapping into view; the fade carries them the rest of the way out */
+.card.is-open .card__leaf--left  { transform: rotateY(-86deg); filter: brightness(0.45); }
+.card.is-open .card__leaf--right { transform: rotateY(86deg);  filter: brightness(0.45); }
+
+/* corner filigree, clipped by the leaf it belongs to.
+   The ornaments are nudged off their corner with `translate`, whose
+   percentages resolve against the ornament itself rather than the leaf. */
+.card__leaf::before,
+.card__leaf::after {
+  content: "";
+  position: absolute;
+  width: 88%;
+  aspect-ratio: 1;
+  background: url("../assets/mandala.svg") center / contain no-repeat;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.card__leaf--left::before  { top: 0;      left: 0;  translate: -38% -38%; }
+.card__leaf--left::after   { bottom: 0;   left: 0;  translate: -38% 38%; }
+.card__leaf--right::before { top: 0;      right: 0; translate: 38% -38%; }
+.card__leaf--right::after  { bottom: 0;   right: 0; translate: 38% 38%; }
+
+/* ---- what is printed across the closed card ---- */
+.card__face {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.45s ease;
+}
+.card.is-open .card__face { opacity: 0; pointer-events: none; }
+
+.card__spine {
+  position: absolute;
+  top: 4%;
+  bottom: 4%;
+  left: 50%;
+  width: 1px;
+  translate: -50% 0;
+  background: linear-gradient(180deg, transparent, rgba(239, 214, 148, 0.34) 12%, rgba(239, 214, 148, 0.34) 88%, transparent);
+}
+
+.card__side {
+  position: absolute;
+  top: 50%;
+  left: 21%;
+  translate: 0 -50%;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  font-family: var(--font-label);
+  font-size: clamp(0.5rem, 1.5vh, 0.625rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--gold-200);
+  opacity: 0.55;
+}
+
+/* ---- the seal ---- */
+.seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: clamp(4.75rem, 24%, 6.5rem);
+  aspect-ratio: 1;
   padding: 0;
   border: 0;
+  border-radius: 50%;
   background: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: scale 0.5s var(--ease);
+  transition: scale 0.45s var(--ease);
 }
-.lamp:hover { scale: 1.025; }
-.lamp:active { scale: 0.985; }
-.lamp:focus-visible { outline: 2px solid var(--gold-300); outline-offset: 1rem; border-radius: 1rem; }
-.gate.is-lit .lamp { cursor: default; }
+.seal:hover { scale: 1.05; }
+.seal:active { scale: 0.96; }
+.seal:focus-visible { outline: 2px solid var(--gold-300); outline-offset: 0.75rem; }
 
-.lamp__halo {
+.seal__glow {
   position: absolute;
-  left: 50%;
-  top: 28%;
-  width: 260%;
-  aspect-ratio: 1;
-  translate: -50% -50%;
+  inset: -34%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 205, 120, 0.5) 0%, rgba(255, 175, 70, 0.16) 40%, transparent 68%);
-  opacity: 0;
-  transition: opacity 1.2s ease;
+  background: radial-gradient(circle, rgba(255, 208, 128, 0.32) 0%, rgba(255, 186, 88, 0.1) 45%, transparent 70%);
+  animation: sealBreathe 3.4s ease-in-out infinite;
   pointer-events: none;
 }
-.gate.is-lit .lamp__halo { opacity: 1; animation: haloBreathe 4.5s ease-in-out 1.2s infinite; }
 
-.lamp__art { width: 100%; height: auto; overflow: visible; }
-.lamp__part { filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28)); }
-
-/* flame is hidden until lit */
-.lamp__flame { opacity: 0; transform-box: fill-box; transform-origin: 50% 100%; }
-.lamp__flame-outer { fill: rgba(255, 176, 60, 0.42); }
-.gate.is-lit .lamp__flame {
-  opacity: 1;
-  animation: flameRise 0.75s var(--ease) forwards, flameFlicker 2.6s ease-in-out 0.75s infinite;
-  filter: drop-shadow(0 0 14px rgba(255, 170, 60, 0.85));
+.seal__disc {
+  position: relative;
+  display: grid;
+  place-content: center;
+  gap: 0.15rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(120% 120% at 34% 24%, #fffdf8 0%, var(--cream) 46%, var(--cream-3) 100%);
+  box-shadow:
+    0 0 0 1px rgba(184, 137, 43, 0.45),
+    0 0 0 6px rgba(253, 250, 243, 0.14),
+    0 10px 24px rgba(20, 10, 3, 0.4);
 }
-
-@keyframes flameRise {
-  from { opacity: 0; scale: 0.3 0.1; }
-  60%  { opacity: 1; scale: 1.08 1.12; }
-  to   { opacity: 1; scale: 1 1; }
+.seal__mono {
+  font-size: clamp(1.35rem, 3.6vh, 1.85rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--brown-800);
 }
-@keyframes flameFlicker {
-  0%, 100% { scale: 1 1;       translate: 0 0; }
-  25%      { scale: 0.96 1.05; translate: -0.6px 0; }
-  50%      { scale: 1.04 0.97; translate: 0.5px 0; }
-  75%      { scale: 0.98 1.03; translate: -0.3px 0; }
-}
-@keyframes haloBreathe {
-  0%, 100% { opacity: 1;    scale: 1; }
-  50%      { opacity: 0.78; scale: 1.06; }
-}
-
-/* hint + quote swap places once the lamp is lit */
-.gate__hint {
-  margin: clamp(1.75rem, 5vh, 2.75rem) 0 0;
+.seal__mono em { font-size: 0.68em; font-style: italic; opacity: 0.7; }
+.seal__open {
   font-family: var(--font-label);
-  font-size: 0.6875rem;
-  letter-spacing: 0.3em;
+  font-size: 0.5rem;
+  letter-spacing: 0.36em;
+  text-indent: 0.36em;
   text-transform: uppercase;
-  color: var(--gold-200);
-  opacity: 0.78;
-  animation: hintPulse 2.8s ease-in-out infinite;
+  color: var(--gold-500);
 }
-.gate__spark { color: var(--gold-400); margin-inline: 0.6rem; }
-.gate.is-lit .gate__hint { opacity: 0; animation: none; transition: opacity 0.4s ease; }
 
-@keyframes hintPulse { 0%, 100% { opacity: 0.78; } 50% { opacity: 0.35; } }
+@keyframes sealBreathe {
+  0%, 100% { opacity: 0.5;  scale: 1; }
+  50%      { opacity: 0.9;  scale: 1.08; }
+}
 
-.gate__quote {
+/* ---- the prompt along the foot of the card ---- */
+.card__hint {
   position: absolute;
   left: 50%;
+  bottom: 7%;
   translate: -50% 0;
-  width: max(100%, 22rem);
   margin: 0;
-  padding-top: 0.35rem;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid rgba(239, 214, 148, 0.28);
+  border-radius: 999px;
+  font-family: var(--font-label);
+  font-size: clamp(0.5rem, 1.4vh, 0.625rem);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--gold-200);
+  opacity: 0.72;
+  animation: hintPulse 2.8s ease-in-out infinite;
+}
+@keyframes hintPulse { 0%, 100% { opacity: 0.72; } 50% { opacity: 0.38; } }
+
+/* ---- the page waiting inside the card ---- */
+.card__inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  gap: 0.5rem;
+  padding: 2rem 1.5rem;
+  border-radius: var(--card-radius);
+  text-align: center;
+  background: linear-gradient(170deg, var(--cream) 0%, var(--cream-2) 55%, var(--cream-3) 100%);
+  /* the page sits exactly under the closed card, so its drop shadow is the
+     shadow the whole card casts */
+  box-shadow: inset 0 0 0 1px rgba(184, 137, 43, 0.3), 0 26px 48px rgba(61, 36, 19, 0.26);
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.card.is-open .card__inner { opacity: 1; transition-delay: 0.5s; }
+
+.card__inner-rule {
+  justify-self: center;
+  width: min(11rem, 55%);
+  height: 1px;
+  background-image: radial-gradient(circle, var(--gold-500) 1px, transparent 1px);
+  background-size: 7px 1px;
+  opacity: 0.6;
+}
+.card__inner-quote {
+  max-width: 18rem;
+  margin: clamp(1.25rem, 3vh, 2rem) auto;
   font-style: italic;
   font-size: 1.05rem;
-  color: var(--gold-200);
-  opacity: 0;
-  transition: opacity 1s ease 0.9s, translate 1s var(--ease) 0.9s;
+  line-height: 1.75;
+  color: var(--brown-500);
 }
-.gate.is-lit .gate__quote { opacity: 0.9; translate: -50% -0.4rem; }
 
 /* 4. Music -------------------------------------------------------------- */
 .music {
@@ -848,7 +1019,7 @@ h1, h2 { margin: 0; font-weight: 400; }
   text-transform: uppercase;
   color: rgba(239, 214, 148, 0.62);
 }
-.footer__lamp { margin: 1.75rem 0 0; font-size: 1.5rem; }
+.footer__mark { margin: 1.75rem 0 0; font-size: 1.5rem; color: var(--gold-300); }
 
 /* 8. Motion + responsive ------------------------------------------------ */
 /* the two names stack, so the hairline between them has nothing left to join */
